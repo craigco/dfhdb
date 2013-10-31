@@ -1,6 +1,4 @@
-var mongo = require('mongodb');
-var Db = require(‘mongodb’).Db;
-var MongoClient = require('mongodb').MongoClient
+var MongoClient = require('mongodb').MongoClient;
 
 var mongoUri = process.env.MONGOLAB_URI ||
   			   process.env.MONGOHQ_URL ||
