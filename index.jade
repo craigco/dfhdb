@@ -3,8 +3,8 @@ extends layout
 block content
     h1= title
     #Helpers
-        - each dfh in dfhs
-          div.dfh
-            div.created_at= dfh.created_at
-            div.name= dfh.name
-        a(href="/dfh/new")!= "Add New Helpers"
+        - each helper in helpers
+          div.helper
+            div.created_at= helper.created_at
+            div.name= helper.name
+        a(href="/helper/new")!= "Add New Helper"
