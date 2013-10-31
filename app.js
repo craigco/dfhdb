@@ -41,7 +41,7 @@ app.get('/', function(req, res){
   dfhProvider.findAll(function(error, emps){
       res.render('index', {
             title: 'Helpers',
-            dfhs:dfhs
+            helpers:helps
         });
   });
 });
