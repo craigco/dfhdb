@@ -6,7 +6,9 @@ var mongoUri = process.env.MONGOLAB_URI ||
 
 DFHProvider = function() {
   this.db = mongo.Db;
-  this.db.connect(mongoUri, function(){});
+  mongo.Db.connect(mongoUri, function(err, db) {
+    this.db = db;	
+  });
 };
 
 
