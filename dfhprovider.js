@@ -1,21 +1,22 @@
 var mongo = require('mongodb');
+var Db = require(‘mongodb’).Db;
+var MongoClient = require('mongodb').MongoClient
 
 var mongoUri = process.env.MONGOLAB_URI ||
   			   process.env.MONGOHQ_URL ||
   			   'mongodb://localhost/mydb';
 
-mongo.Db.connect(mongoUri, function (err, db) {
-  db.collection('mydocs', function(er, collection) {
-    collection.insert({'mykey': 'myvalue'}, {safe: true}, function(er,rs) {
-    });
-  });
-});
+//mongo.Db.connect(mongoUri, function (err, db) {
+//  db.collection('mydocs', function(er, collection) {
+//    collection.insert({'mykey': 'myvalue'}, {safe: true}, function(er,rs) {
+//    });
+//  });
+//});
 
 DFHProvider = function() {
-  //this.db = mongo.Db;
-  //mongo.Db.connect(mongoUri, function(err, db) {
-  //  this.db = db;	
-  //});
+  MongoClient.connect(mongoUri, function(err, db) {
+    this.db = db;	
+  });
 };
 
 
