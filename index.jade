@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    h1= title
+    #Helpers
+        - each dfh in dfhs
+          div.dfh
+            div.created_at= dfh.created_at
+            div.name= dfh.name
+        a(href="/dfh/new")!= "Add New Helpers"

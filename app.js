@@ -8,6 +8,7 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
+var DFHProvider = require('./dfhprovider').DFHProvider;
 
 var app = express();
 
@@ -29,8 +30,36 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
-app.get('/users', user.list);
+var mongoUri = process.env.MONGOLAB_URI ||
+               process.env.MONGOHQ_URL ||
+  	       'mongodb://localhost/mydb';
+
+
+var dfhProvider = new DFHProvider(mongoUri, 27017);
+
+app.get('/', function(req, res){
+  dfhProvider.findAll(function(error, emps){
+      res.render('index', {
+            title: 'Helpers',
+            dfhs:dfhs
+        });
+  });
+});
+
+app.get('/dfh/new', function(req, res) {
+    res.render('dfh_new', {
+        title: 'New Helper'
+    });
+});
+
+//save new dfh 
+app.post('/dfh/new', function(req, res){
+    dfhProvider.save({
+        name: req.param('name')
+    }, function( error, docs) {
+        res.redirect('/')
+    });
+});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
