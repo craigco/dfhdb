@@ -12,8 +12,8 @@ var ObjectID = require('mongodb').ObjectID;
 
 
 DFHProvider = function(host, port) {
-  this.db= new Db('node-mongo-dfhdb', new Server(host, port, {safe: false}, {auto_reconnect: true}, {}));
-  this.db.open(function(){});
+  this.db = mongo.Db;
+  this.db.connect(mongoUri, function(){});
 };
 
 

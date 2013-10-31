@@ -40,7 +40,7 @@ var dfhProvider = new DFHProvider(mongoUri, 27017);
 app.get('/', function(req, res){
   dfhProvider.findAll(function(error, helps){
       res.render('index', {
-            title: 'Helpers',
+            title: 'Helper DB',
             helpers:helps
         });
   });
