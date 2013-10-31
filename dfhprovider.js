@@ -1,8 +1,8 @@
-var MongoClient = require('mongodb').MongoClient;
+var mongodb = require('mongodb');
 
 var mongoUri = process.env.MONGOLAB_URI ||
-  			   process.env.MONGOHQ_URL ||
-  			   'mongodb://localhost/mydb';
+  	       process.env.MONGOHQ_URL ||
+  	       'mongodb://localhost/mydb';
 
 //mongo.Db.connect(mongoUri, function (err, db) {
 //  db.collection('mydocs', function(er, collection) {
@@ -12,7 +12,7 @@ var mongoUri = process.env.MONGOLAB_URI ||
 //});
 
 DFHProvider = function() {
-  MongoClient.connect(mongoUri, function(err, db) {
+  mongodb.MongoClient.connect(mongoUri, function(err, db) {
     this.db = db;	
   });
 };
