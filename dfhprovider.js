@@ -4,32 +4,25 @@ var mongoUri = process.env.MONGOLAB_URI ||
   			   process.env.MONGOHQ_URL ||
   			   'mongodb://localhost/mydb';
 
-var Db = require('mongodb').Db;
-var Connection = require('mongodb').Connection;
-var Server = require('mongodb').Server;
-var BSON = require('mongodb').BSON;
-var ObjectID = require('mongodb').ObjectID;
-
-
-DFHProvider = function(host, port) {
+DFHProvider = function() {
   this.db = mongo.Db;
   this.db.connect(mongoUri, function(){});
 };
 
 
 DFHProvider.prototype.getCollection= function(callback) {
-  this.db.collection('dfhs', function(error, dfh_collection) {
+  this.db.collection('helpers', function(error, helper_collection) {
     if( error ) callback(error);
-    else callback(null, dfh_collection);
+    else callback(null, helper_collection);
   });
 };
 
-//find all dfhs
+//find all helpers
 DFHProvider.prototype.findAll = function(callback) {
-    this.getCollection(function(error, dfh_collection) {
+    this.getCollection(function(error, helper_collection) {
       if( error ) callback(error)
       else {
-        dfh_collection.find().toArray(function(error, results) {
+        helper_collection.find().toArray(function(error, results) {
           if( error ) callback(error)
           else callback(null, results)
         });
@@ -37,21 +30,21 @@ DFHProvider.prototype.findAll = function(callback) {
     });
 };
 
-//save new dfh
-DFHProvider.prototype.save = function(dfhs, callback) {
-    this.getCollection(function(error, dfh_collection) {
+//save new helper
+DFHProvider.prototype.save = function(helpers, callback) {
+    this.getCollection(function(error, helper_collection) {
       if( error ) callback(error)
       else {
-        if( typeof(dfhs.length)=="undefined")
-          dfhs = [dfhs];
+        if( typeof(helpers.length)=="undefined")
+          helpers = [helpers];
 
-        for( var i =0;i< dfhs.length;i++ ) {
-          dfh = dfhs[i];
-          dfh.created_at = new Date();
+        for( var i =0;i< helpers.length;i++ ) {
+          helper = helpers[i];
+          helper.created_at = new Date();
         }
 
-        dfh_collection.insert(employees, function() {
-          callback(null, dfhs);
+        helper_collection.insert(helpers, function() {
+          callback(null, helpers);
         });
       }
     });

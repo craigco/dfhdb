@@ -30,12 +30,7 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-var mongoUri = process.env.MONGOLAB_URI ||
-               process.env.MONGOHQ_URL ||
-  	       'mongodb://localhost/mydb';
-
-
-var dfhProvider = new DFHProvider(mongoUri, 27017);
+var dfhProvider = new DFHProvider();
 
 app.get('/', function(req, res){
   dfhProvider.findAll(function(error, helps){
@@ -46,14 +41,14 @@ app.get('/', function(req, res){
   });
 });
 
-app.get('/dfh/new', function(req, res) {
+app.get('/helper/new', function(req, res) {
     res.render('dfh_new', {
         title: 'New Helper'
     });
 });
 
 //save new dfh 
-app.post('/dfh/new', function(req, res){
+app.post('/helper/new', function(req, res){
     dfhProvider.save({
         name: req.param('name')
     }, function( error, docs) {
