@@ -42,7 +42,7 @@ app.get('/', function(req, res){
 });
 
 app.get('/helper/new', function(req, res) {
-    res.render('dfh_new', {
+    res.render('helper_new', {
         title: 'New Helper'
     });
 });

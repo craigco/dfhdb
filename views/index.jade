@@ -1,5 +1,10 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    h1= title
+    #Helpers
+        - each helper in helpers
+          div.helper
+            div.created_at= helper.created_at
+            div.name= helper.name
+        a(href="/helper/new")!= "Add New Helper"
