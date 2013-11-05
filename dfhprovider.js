@@ -2,14 +2,12 @@ var mongo = require('mongodb').MongoClient;
 
 var mongoUri = process.env.MONGOLAB_URI ||
   	       process.env.MONGOHQ_URL ||
-  	       'mongodb://localhost/mydb';
+  	       'mongodb://localhost/helperapp';
 
 var database = null;
 
 DFHProvider = function() {
   mongo.connect(mongoUri, {}, function(error, db) {
-    console.log("connected, db: " + db);
-
     database = db;
 
     database.addListener("error", function(error){
@@ -20,7 +18,7 @@ DFHProvider = function() {
 
 
 DFHProvider.prototype.getCollection= function(callback) {
-  database.collection('helpers', function(error, helper_collection) {
+  database.collection('usercollection', function(error, helper_collection) {
     if( error ) callback(error);
     else callback(null, helper_collection);
   });

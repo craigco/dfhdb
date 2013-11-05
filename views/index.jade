@@ -1,10 +1,21 @@
 extends layout
 
 block content
-    h1= title
-    #Helpers
-        - each helper in helpers
-          div.helper
-            div.created_at= helper.created_at
-            div.name= helper.name
-        a(href="/helper/new")!= "Add New Helper"
+	h1= title
+	#helpers
+		- each helper in helpers
+			div.helper
+				div.created_at= helper.created_at
+				div.name= helper.name
+				div.age= helper.age
+				div.description= helper.description
+				div.contract_end= helper.contract_end
+				div.languages= helper.languages
+				div.skills= helper.skills
+					form( method="post", action="/helper/:id/delete") 
+						input(name="_id", type="hidden", value=helper._id.toHexString()) 
+						input(id="delete", value="X", type="submit")
+					form( method="get", action="/helper/:id/edit") 
+						input(name="_id", type="hidden", value=helper._id.toHexString()) 
+						input(id="edit", value="Edit", type="submit")
+		a(href="/helper/new")!= "Add New Helper"
